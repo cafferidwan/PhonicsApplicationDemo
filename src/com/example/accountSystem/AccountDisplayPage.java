@@ -1,5 +1,6 @@
 package com.example.accountSystem;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.example.phonicsapp.R;
@@ -22,49 +23,56 @@ public class AccountDisplayPage extends Activity
 	
 	public static String TAG = AccountDisplayPage.class.getSimpleName();
 
-	GridView gridView;
-	ArrayList<Item> gridArray = new ArrayList<Item>();
-	CustomGridViewAdapter customGridAdapter;
-
+	public GridView gridView;
+	public ArrayList<Item> gridArray = new ArrayList<Item>();
+	public CustomGridViewAdapter customGridAdapter;
+	
+	public static int accountNumber=66;
+	public Bitmap[] accountPic = new Bitmap[10];
+	
+	public AccountDisplayPage instance;
+	public File[] imgFile= new File[10];
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// set grid view item
-		Bitmap accountOneIcon = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.images);
-		Bitmap accountTwoIcon = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.images);
-		Bitmap accountThreeIcon = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.images);
-		Bitmap accountFourIcon = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.images);
-		Bitmap accountFiveIcon = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.images);
-		Bitmap accountSixIcon = BitmapFactory.decodeResource(this.getResources(),
-				R.drawable.images);
+		instance=this;
 		
-
-		gridArray.add(new Item(accountOneIcon, "1"));
-		gridArray.add(new Item(accountTwoIcon, "2"));
-		gridArray.add(new Item(accountThreeIcon, "3"));
-		gridArray.add(new Item(accountFourIcon, "4"));
-		gridArray.add(new Item(accountFiveIcon, "5"));
-		gridArray.add(new Item(accountSixIcon, "6"));
-
+		loadingAccountImage();
+	
+		
+		//loading text view labels
+		loadTextView();
+		
 		gridView = (GridView) findViewById(R.id.gridView1);
-		gridView.setOnItemClickListener(new OnItemClickListener() {
-	          public void onItemClick(AdapterView<?> parent, View v,
-	                  int position, long id) {
+		gridView.setOnItemClickListener(new OnItemClickListener() 
+		{
+	          public void onItemClick(AdapterView<?> parent, View v, int position, long id) 
+	          {
+	        	  //if the image file does not exists, then take a snap shot
+	        	  onClickSnapShotCheck(position);
 	        	  
+//	        	  File imgFile = new  File("/sdcard/PhonicsApp/AccountPic/"+0+".jpg");
+//	      		  if(!imgFile.exists())
+//	      		  {  
+//	      			  if(position==0)
+//	      			  {
+//	      				  accountNumber = position;
+//	      			  	  finish();
+//	      			  	  startActivity(new Intent(getBaseContext(), CameraPicture.class));
+//	      			  }
+//	      		  }
+ 	        	  
+	        	 
 	              // Send intent to SingleViewActivity
-	              Intent i = 
-	              new Intent(getApplicationContext(), SingleViewActivity.class);
-	              // Pass image index
-	              i.putExtra("id", position);
-	              startActivity(i);
+//	              Intent i = new Intent(getApplicationContext(), SingleViewActivity.class);
+//	              // Pass image index
+//	              i.putExtra("id", position);
+//	              startActivity(i);
+	              
 	          }
 	      });
 		customGridAdapter = new CustomGridViewAdapter(this, R.layout.row_grid,
@@ -72,5 +80,50 @@ public class AccountDisplayPage extends Activity
 		gridView.setAdapter(customGridAdapter);
 		
 	}
+	
+	public void loadTextView()
+	{ 
+		//adding textview icons
+		gridArray.add(new Item(accountPic[0], "0"));
+		gridArray.add(new Item(accountPic[1], "1"));
+		gridArray.add(new Item(accountPic[2], "2"));
+		gridArray.add(new Item(accountPic[3], "3"));
+		gridArray.add(new Item(accountPic[4], "4"));
+		gridArray.add(new Item(accountPic[5], "5"));
+	} 
+	
+	public void loadingAccountImage()
+	{
+		for(int i=0;i<6;i++)
+		{
+			imgFile[i] = new  File("/sdcard/PhonicsApp/AccountPic/"+i+".jpg");
+			//if the camera snap shot image file exists, then load the snap shot
+			if(imgFile[i].exists())
+			{
+				accountPic[i] = BitmapFactory.decodeFile(imgFile[i].getAbsolutePath());
+			}
+			//else load the default image   
+			else
+			{
+				accountPic[i] = BitmapFactory.decodeResource(instance.getResources(),
+						R.drawable.images);
+			}
+		}
 
+	}
+	
+	public void onClickSnapShotCheck(int position)
+	{
+		 File imgFile = new  File("/sdcard/PhonicsApp/AccountPic/"+position+".jpg");
+ 		 if(!imgFile.exists())
+ 		 {
+// 			 if(position)
+// 			 {
+ 				 accountNumber = position;
+ 			     instance.finish();
+ 			     instance.startActivity(new Intent(instance.getBaseContext(), CameraPicture.class));
+// 			 }
+ 	     }
+ 		 
+	}
 }
