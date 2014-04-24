@@ -41,6 +41,7 @@ public class AccountDisplayPage extends Activity
 
 		instance=this;
 		
+		//loading account images
 		loadingAccountImage();
 	
 		
@@ -54,25 +55,6 @@ public class AccountDisplayPage extends Activity
 	          {
 	        	  //if the image file does not exists, then take a snap shot
 	        	  onClickSnapShotCheck(position);
-	        	  
-//	        	  File imgFile = new  File("/sdcard/PhonicsApp/AccountPic/"+0+".jpg");
-//	      		  if(!imgFile.exists())
-//	      		  {  
-//	      			  if(position==0)
-//	      			  {
-//	      				  accountNumber = position;
-//	      			  	  finish();
-//	      			  	  startActivity(new Intent(getBaseContext(), CameraPicture.class));
-//	      			  }
-//	      		  }
- 	        	  
-	        	 
-	              // Send intent to SingleViewActivity
-//	              Intent i = new Intent(getApplicationContext(), SingleViewActivity.class);
-//	              // Pass image index
-//	              i.putExtra("id", position);
-//	              startActivity(i);
-	              
 	          }
 	      });
 		customGridAdapter = new CustomGridViewAdapter(this, R.layout.row_grid,
@@ -117,12 +99,9 @@ public class AccountDisplayPage extends Activity
 		 File imgFile = new  File("/sdcard/PhonicsApp/AccountPic/"+position+".jpg");
  		 if(!imgFile.exists())
  		 {
-// 			 if(position)
-// 			 {
- 				 accountNumber = position;
- 			     instance.finish();
- 			     instance.startActivity(new Intent(instance.getBaseContext(), CameraPicture.class));
-// 			 }
+ 			 accountNumber = position;
+ 			 instance.finish();
+ 			 instance.startActivity(new Intent(instance.getBaseContext(), CameraPicture.class));
  	     }
  		 
 	}
