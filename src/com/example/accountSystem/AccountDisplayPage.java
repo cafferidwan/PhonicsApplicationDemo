@@ -45,10 +45,10 @@ public class AccountDisplayPage extends Activity
 		loadingAccountImage();
 	
 		
-		//loading text view labels
+		//loading text view labels 
 		loadTextView();
 		
-		gridView = (GridView) findViewById(R.id.gridView1);
+		gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setOnItemClickListener(new OnItemClickListener() 
 		{
 	          public void onItemClick(AdapterView<?> parent, View v, int position, long id) 
@@ -82,7 +82,10 @@ public class AccountDisplayPage extends Activity
 			//if the camera snap shot image file exists, then load the snap shot
 			if(imgFile[i].exists())
 			{
-				accountPic[i] = BitmapFactory.decodeFile(imgFile[i].getAbsolutePath());
+				Bitmap scaled = BitmapFactory.decodeFile(imgFile[i].getAbsolutePath());
+				accountPic[i] =  Bitmap.createScaledBitmap(scaled, 226,
+						223, true);
+				
 			}
 			//else load the default image   
 			else

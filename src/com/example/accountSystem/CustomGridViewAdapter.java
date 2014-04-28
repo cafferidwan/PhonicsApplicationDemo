@@ -45,9 +45,6 @@ public class CustomGridViewAdapter extends ArrayAdapter<Item>
 			holder.txtTitle = (TextView) row.findViewById(R.id.item_text);
 			holder.imageItem = (ImageView) row.findViewById(R.id.item_image);
 			row.setTag(holder);
-			
-			
-			
 		} 
 		else
 		{

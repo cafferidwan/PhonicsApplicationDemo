@@ -26,17 +26,21 @@ public final class R {
         public static final int images=0x7f020002;
     }
     public static final class id {
-        public static final int fl=0x7f090001;
-        public static final int gridView1=0x7f090000;
-        public static final int imageView1=0x7f090002;
-        public static final int item_image=0x7f090003;
-        public static final int item_text=0x7f090004;
+        public static final int fl=0x7f090003;
+        public static final int gridview=0x7f090000;
+        public static final int imageView1=0x7f090004;
+        public static final int imgview=0x7f090001;
+        public static final int item_image=0x7f090005;
+        public static final int item_text=0x7f090006;
+        public static final int text=0x7f090002;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int main_camera=0x7f030001;
-        public static final int row_grid=0x7f030002;
-        public static final int singleview=0x7f030003;
+        public static final int activity_main1=0x7f030001;
+        public static final int customgrid=0x7f030002;
+        public static final int main_camera=0x7f030003;
+        public static final int row_grid=0x7f030004;
+        public static final int singleview=0x7f030005;
     }
     public static final class menu {
         public static final int main=0x7f080000;

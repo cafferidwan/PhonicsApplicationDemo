@@ -2,8 +2,6 @@ package com.example.accountSystem;
 
 import android.graphics.Bitmap;
 
-
-
 public class Item
 {
 	Bitmap image;
