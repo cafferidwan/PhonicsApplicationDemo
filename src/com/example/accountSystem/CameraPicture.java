@@ -22,9 +22,7 @@ import android.util.Log;
 
 public class CameraPicture extends Activity 
 {
-	private Camera mCamera;
 	public static Bitmap imageBitmap;
-	private Bitmap bitmap;
 	public static int counter;
 	
 	private static int TAKE_PICTURE = 1;
@@ -67,57 +65,5 @@ public class CameraPicture extends Activity
 			startActivity(new Intent(getBaseContext(), AccountDisplayPage.class));
 //		}
  
-	}
-	
-	@SuppressLint("SdCardPath")
-	public static boolean writeFile()
-	{
-		File folder = new File(Environment.getExternalStorageDirectory() + "/PhonicsApp/AccountPic");
-		boolean success = true;
-		if (!folder.exists())
-		{
-		    success = folder.mkdirs();
-		}
-		if (success) 
-		{
-		    // Do something on success
-			try 
-			{
-				FileOutputStream out = new FileOutputStream("/sdcard/PhonicsApp/AccountPic/"+AccountDisplayPage.accountNumber+".jpg");
-				//imageBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-				
-				//Log.d(DEBUG_TAG, "camerafile: " + camerafile);
-			}
-			catch (FileNotFoundException e) 
-			{
-				Log.d("CAMERA", e.getMessage());
-			} 
-			catch (IOException e) 
-			{
-				Log.d("CAMERA", e.getMessage());
-			}
-		}
-		else 
-		{
-		    // Do something else on failure 
-			if(folder.exists()==true)
-			{
-				try 
-				{
-					FileOutputStream out = new FileOutputStream("/sdcard/PhonicsApp/AccountPic/1.jpg");
-//					imageBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-					
-				}
-				catch (FileNotFoundException e) 
-				{
-					Log.d("CAMERA", e.getMessage());
-				} 
-				catch (IOException e) 
-				{
-					Log.d("CAMERA", e.getMessage());
-				}
-			}
-		}
-		return success;
 	}
 }
