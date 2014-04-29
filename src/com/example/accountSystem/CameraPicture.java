@@ -23,8 +23,6 @@ import android.util.Log;
 public class CameraPicture extends Activity 
 {
 	public static Bitmap imageBitmap;
-	public static int counter;
-	
 	private static int TAKE_PICTURE = 1;
 	private Uri outputFileUri;
 	File f ;

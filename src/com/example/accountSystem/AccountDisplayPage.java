@@ -10,14 +10,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class AccountDisplayPage extends Activity 
 {
@@ -33,6 +29,7 @@ public class AccountDisplayPage extends Activity
 	
 	public AccountDisplayPage instance;
 	public File[] imgFile= new File[10];
+	public static int counter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -41,6 +38,7 @@ public class AccountDisplayPage extends Activity
 		setContentView(R.layout.activity_main);
 
 		instance=this;
+		counter=0;
 		
 		//loading account images
 		loadingAccountImage();
@@ -65,7 +63,7 @@ public class AccountDisplayPage extends Activity
 	}
 	
 	public void loadTextView()
-	{ 
+	{
 		//adding textview icons
 		gridArray.add(new Item(accountPic[0], "0"));
 		gridArray.add(new Item(accountPic[1], "1"));
@@ -97,58 +95,8 @@ public class AccountDisplayPage extends Activity
 						R.drawable.images);
 				accountPic[i] = Bitmap.createScaledBitmap(b, 226,
 						223, false);
-			}
+			}  
 		}
-
-	}
-	
-	public Bitmap ShrinkBitmap(String file, int width, int height) {
-        Log.d("ShrinkBitmap", "Trying to shrink " + file + " to " + width + "x" + height);
-        BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
-        bmpFactoryOptions.inJustDecodeBounds = true;
-        Bitmap bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
-        Log.d("ShrinkBitmap", "Original size: " + bmpFactoryOptions.outWidth + "x" + bmpFactoryOptions.outHeight);
- 
-        int heightRatio = (int) Math.ceil(bmpFactoryOptions.outHeight / (float) height);
-        int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth / (float) width);
-        if (heightRatio > 1 || widthRatio > 1) {
-            if (heightRatio > widthRatio) {
-                bmpFactoryOptions.inSampleSize = heightRatio;
-                Log.d("ShrinkBitmap", "Shrink ratio: " + heightRatio);
-            } else {
-                bmpFactoryOptions.inSampleSize = widthRatio;
-                Log.d("ShrinkBitmap", "Shrink ratio: " + widthRatio);
-            }
-        }
-        bmpFactoryOptions.inJustDecodeBounds = false;
-        bitmap = BitmapFactory.decodeFile(file, bmpFactoryOptions);
-        return bitmap;
-    }
-	
-	private void setPic(String imagePath, ImageView destination) 
-	{
-	    int targetW = 226;//destination.getWidth();
-	    int targetH = 223;//destination.getHeight();
-	    // Get the dimensions of the bitmap
-	    BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-	    
-	    bmOptions.inJustDecodeBounds = true;
-	    
-	    BitmapFactory.decodeFile(imagePath, bmOptions);
-	    
-	    int photoW = bmOptions.outWidth;
-	    int photoH = bmOptions.outHeight;
-
-	    // Determine how much to scale down the image
-	    int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-	    // Decode the image file into a Bitmap sized to fill the View
-	    bmOptions.inJustDecodeBounds = false;
-	    bmOptions.inSampleSize = scaleFactor;
-	    bmOptions.inPurgeable = true;
-
-	    Bitmap bitmap = BitmapFactory.decodeFile(imagePath, bmOptions);
-	    destination.setImageBitmap(bitmap);
 	}
 	
 	public void onClickSnapShotCheck(int position)
@@ -157,8 +105,13 @@ public class AccountDisplayPage extends Activity
  		 if(!imgFile.exists())
  		 {
  			 accountNumber = position;
- 			 instance.finish();
- 			 instance.startActivity(new Intent(instance.getBaseContext(), CameraPicture.class));
+ 			 
+ 			 counter++;
+ 			 if(counter==1)
+ 			 {
+ 				 instance.finish();
+ 				 instance.startActivity(new Intent(instance.getBaseContext(), CameraPicture.class));
+ 			 } 
  	     }
  		 
 	}

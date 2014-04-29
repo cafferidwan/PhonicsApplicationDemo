@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 public class CustomGridViewAdapter extends ArrayAdapter<Item>
 {
-	
 	Context context;
 	int layoutResourceId;
 	ArrayList<Item> data = new ArrayList<Item>();
@@ -54,11 +53,14 @@ public class CustomGridViewAdapter extends ArrayAdapter<Item>
 		Item item = data.get(position);
 		holder.txtTitle.setText(item.getTitle());
 		holder.imageItem.setImageBitmap(item.getImage());
+		holder.imageItem.setScaleType(ImageView.ScaleType.CENTER_CROP);
+		holder.imageItem.setPadding(60,8,8,8);
+		holder.txtTitle.setPadding(60,8,8,8);
 		
 		return row;
 	}
 
-	static class RecordHolder 
+	static class RecordHolder
 	{
 		TextView txtTitle;
 		ImageView imageItem;
